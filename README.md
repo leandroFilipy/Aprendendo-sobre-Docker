@@ -1,18 +1,24 @@
-# 🐬 MySQL com Docker Compose
+# 🐬 GUIA MASTER MYSQL DOCKER - TOPZERA 🚀
 
-Este repositório demonstra como subir um banco de dados **MySQL** com persistência de dados usando **Docker Compose**, de forma simples, rápida e organizada.
-
----
-
-## 📁 Estrutura de Diretórios
+Guia rápido para subir o banco de dados e configurar tudo de uma vez.
 
 ---
 
-## ⚙️ Arquivo `docker-compose.yml`
+### 🛠️ 1. Comandos de Preparação (Bash/Terminal)
+Execute estes comandos para criar a pasta e o arquivo:
 
+```bash
+cd documents
+mkdir mysql2
+cd mysql2
+echo > docker-compose.yml
+start docker-compose.yml
 
+📄 2. Configuração do Arquivo (docker-compose.yml)
+Cole este conteúdo dentro do arquivo docker-compose.yml:
+
+YAML
 version: '3.8'
-
 services:
   db:
     image: mysql/mysql-server:latest
@@ -29,56 +35,21 @@ services:
 volumes:
   mysql-volume:
     driver: local
-🛠️ Imagem: MySQL oficial
 
-🧱 Container: my-mysql
 
-🔒 Senha root: mysqlPW
+🚀 3. Subir e Configurar o Banco (Docker + SQL)
+Copie e cole a sequência abaixo no seu terminal:
 
-🗂️ Banco criado automaticamente: mysqlDB
-
-📦 Volume local: mysql-volume (para persistência dos dados)
-
-🔁 Restart: sempre que necessário
-
-💻 Comandos Utilizados
-bash
-Copiar
-Editar
-cd Documents
-mkdir mysql2
-cd mysql2
-echo > docker-compose.yml
-start docker-compose.yml
+# Subir o container
 docker-compose up -d
-✅ Resultado Esperado
-Após executar docker-compose up -d, o terminal exibirá o processo de criação da imagem e inicialização do container:
 
-📦 Download automático da imagem do MySQL
+# Entrar no container e logar no MySQL (Senha: mysqlPW)
+docker exec -it my-mysql bash
+mysql -u root -p
 
-🚀 Container iniciado em segundo plano (-d)
+# --- COMANDOS SQL (DENTRO DO MYSQL) ---
+CREATE DATABASE LEANDRODATABASE;
 
-🟢 MySQL acessível na porta 3306
+UPDATE mysql.user SET host='%' WHERE user='root';
 
-🔌 Conexão com o Banco
-Use qualquer cliente MySQL (CLI ou GUI) com os seguintes dados:
-
-bash
-Copiar
-Editar
-Host:     127.0.0.1
-Porta:    3306
-Usuário:  root
-Senha:    mysqlPW
-Banco:    mysqlDB
-🧽 Parar o Container
-bash
-Copiar
-Editar
-docker-compose down
-Isso para o container, mas mantém os dados salvos no volume.
-
-📝 Observações
-🔁 O volume mysql-volume mantém os dados mesmo se o container for recriado.
-
-🧹 Use docker volume rm mysql2_mysql-volume se quiser apagar os dados persistentes.
+FLUSH PRIVILEGES;
