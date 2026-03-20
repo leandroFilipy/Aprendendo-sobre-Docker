@@ -1,55 +1,129 @@
-# 🐬 GUIA MASTER MYSQL DOCKER - TOPZERA 🚀
+# 🐬 Guia Master MySQL + Docker 🚀
 
-Guia rápido para subir o banco de dados e configurar tudo de uma vez.
+Guia rápido e organizado para subir um banco de dados **MySQL com Docker**.
 
 ---
 
-### 🛠️ 1. Comandos de Preparação (Bash/Terminal)
-Execute estes comandos para criar a pasta e o arquivo:
+# 🛠️ 1. Preparação do Ambiente
+
+Execute os comandos abaixo no terminal:
 
 ```bash
-cd documents
-mkdir mysql2
-cd mysql2
+cd ~/Documents
+
+mkdir mysql-docker
+
+cd mysql-docker
+
 echo > docker-compose.yml
-start docker-compose.yml
+```
 
-📄 2. Configuração do Arquivo (docker-compose.yml)
-Cole este conteúdo dentro do arquivo docker-compose.yml:
 
-YAML
+---
+
+# 📄 2. Configuração do Docker Compose
+
+Abra o arquivo `docker-compose.yml` e cole:
+
+```yaml
 version: '3.8'
+
 services:
   db:
-    image: mysql/mysql-server:latest
+    image: mysql:8.0
     container_name: my-mysql
     restart: always
     environment:
-      - MYSQL_DATABASE=mysqlDB
-      - MYSQL_ROOT_PASSWORD=mysqlPW
+      MYSQL_ROOT_PASSWORD: mysqlPW
+      MYSQL_DATABASE: mysqlDB
     ports:
-      - '3306:3306'
+      - "3306:3306"
     volumes:
       - mysql-volume:/var/lib/mysql
 
 volumes:
   mysql-volume:
-    driver: local
+```
 
+---
 
-🚀 3. Subir e Configurar o Banco (Docker + SQL)
-Copie e cole a sequência abaixo no seu terminal:
+# 🚀 3. Subindo o Container
 
-# Subir o container
-docker-compose up -d
+```bash
+docker compose up -d
+```
 
-# Entrar no container e logar no MySQL (Senha: mysqlPW)
+---
+
+# 🔐 Acessando o MySQL
+
+Execute os comandos abaixo **um por vez**:
+
+### 1️⃣ Entrar no container
+
+```bash id="cmd1"
 docker exec -it my-mysql bash
+```
+
+---
+
+### 2️⃣ Acessar o MySQL dentro do container
+
+```bash id="cmd2"
 mysql -u root -p
+```
 
-# --- COMANDOS SQL (DENTRO DO MYSQL) ---
-CREATE DATABASE LEANDRODATABASE;
+🔑 Quando pedir senha, digite:
 
-UPDATE mysql.user SET host='%' WHERE user='root';
+```
+mysqlPW
+```
+
+---
+
+💡 **Resumo:**
+
+* Primeiro você entra no container 🐳
+* Depois acessa o MySQL 🐬
+
+
+---
+
+# 🧠 5. Configuração do Banco (SQL)
+
+```sql
+CREATE DATABASE leandro_database;
+
+ALTER USER 'root'@'%' IDENTIFIED BY 'mysqlPW';
 
 FLUSH PRIVILEGES;
+```
+
+---
+
+# 🌐 6. Acesso
+
+* Host: localhost
+* Porta: 3306
+* Usuário: root
+* Senha: mysqlPW
+
+---
+
+# ⚠️ Boas Práticas
+
+* 🔒 Use senhas fortes em produção
+* 📦 Evite usar latest
+* 💾 Sempre use volumes
+
+---
+
+# 👨‍💻 Autor
+
+**Leandro Mogador ++ 🚀**
+
+---
+
+# ⭐ Conclusão
+
+Setup simples, rápido e pronto pra desenvolvimento com Docker + MySQL.
