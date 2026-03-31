@@ -16,6 +16,8 @@ mkdir mysql-docker
 cd mysql-docker
 
 echo > docker-compose.yml
+
+start docker-compose.yml
 ```
 
 
