@@ -9,7 +9,7 @@ Guia rápido e organizado para subir um banco de dados **MySQL com Docker**.
 Execute os comandos abaixo no terminal:
 
 ```bash
-cd ~/Documents
+cd documents
 
 mkdir mysql-docker
 
